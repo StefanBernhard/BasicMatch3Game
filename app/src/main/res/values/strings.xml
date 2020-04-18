@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">Match3</string>
+    <string name="welcomeMain">Hello</string>
+    <string name="exclamationMark">!</string>
+    <string name="startGame">Start Game</string>
+    <string name="nameHint">Enter your name</string>
+    <string name="clearHighscores">Clear Highscores</string>
+    <string name="score">Score</string>
+    <string name="back">Back</string>
+    <string name="restart">Re(Start)</string>
+    <string name="name">" "</string>
+    <string name="turns">Turns</string>
+    <string-array name="players">
+        <item>Peach</item>
+        <item>Luigi</item>
+        <item>Mario</item>
+    </string-array>
+    <string-array name="highscores">
+        <item>50</item>
+        <item>25</item>
+        <item>10</item>
+    </string-array>
+</resources>
