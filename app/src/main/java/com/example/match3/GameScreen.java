@@ -4,31 +4,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 
-import android.content.ClipData;
-import android.content.ClipDescription;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.match3.Box.Box;
 import com.example.match3.Box.BoxGrid;
-import com.example.match3.Events.MyDragShadowBuilder;
 import com.example.match3.Events.OnBoxRemovedEventListener;
-
-import java.util.Random;
-import java.util.zip.Inflater;
 
 public class GameScreen extends AppCompatActivity {
 
@@ -99,40 +85,22 @@ public class GameScreen extends AppCompatActivity {
                 }
         );
 
-        // set drag & drop functionality
-        findViewById(R.id.gameFrame).setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
 
-                // Create a new ClipData.
-                // This is done in two steps to provide clarity. The convenience method
-                // ClipData.newPlainText() can create a plain text ClipData in one step.
-                // Create a new ClipData.Item from the ImageView object's tag
-                ClipData.Item item = new ClipData.Item(v.getTag().toString());
 
-                // Create a new ClipData using the tag as a label, the plain text MIME type, and
-                // the already-created item. This will create a new ClipDescription object within the
-                // ClipData, and set its MIME type entry to "text/plain"
-                ClipData dragData = new ClipData(
-                        v.getTag().toString(),
-                        new String[] { ClipDescription.MIMETYPE_TEXT_PLAIN },
-                        item);
+    }
 
-                // Instantiates the drag shadow builder.
-                View.DragShadowBuilder myShadow = new MyDragShadowBuilder(v);
-
-                // Starts the drag
-
-                v.startDrag(dragData,  // the data to be dragged
-                        myShadow,  // the drag shadow builder
-                        null,      // no need to use local data
-                        0          // flags (not currently used, set to 0)
-                );
-
-                return false;
-            }
-        });
-
+    //getters and setters
+    public int getSizeX(){
+        return sizeX;
+    }
+    public int getSizeY(){
+        return sizeY;
+    }
+    public Box[] getGridRow(int posY){
+        return grid.getBoxesRow(posY);
+    }
+    public Box[] getGridColumn(int posX){
+        return grid.getBoxesColumn(posX);
     }
 
     //makes a ned game board of size X by Y
@@ -145,6 +113,7 @@ public class GameScreen extends AppCompatActivity {
             ConstraintLayout cl = (ConstraintLayout) findViewById(R.id.gameFrame);
             BoxGrid newGrid = new BoxGrid(X, Y);
             grid = newGrid;
+            //when a box is removed, update the score and turns, and end game if it was the last turn
             newGrid.setOnBoxRemovedEventListener(new OnBoxRemovedEventListener() {
                 @Override
                 public void onBoxRemoved(int points) {
@@ -191,4 +160,7 @@ public class GameScreen extends AppCompatActivity {
         grid = null;
         gameRunning = false;
     }
+
+
+
 }
